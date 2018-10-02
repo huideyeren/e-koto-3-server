@@ -1,0 +1,44 @@
+version: '3.4'
+
+volumes:
+  mysite.db.volume:
+    name: mysite.db.volume
+
+services:
+  h2o:
+    image: lkwg82/h2o-http2-server
+    container_name: mysite.h2o
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./h2o.conf:/etc/h2o/h2o.conf
+      - "/etc/letsencrypt:/etc/letsencrypt"
+      - ./static:/static
+    depends_on:
+      - web
+
+  db:
+    image: mariadb:10.3
+    container_name: mysite.db
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: mysitepass
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - mysite.db.volume:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+
+  web:
+    build: ./web
+    container_name: mysite.web
+    command: uwsgi --socket :8001 --module mysite.wsgi
+    volumes:
+      - ./src:/code
+      - ./static:/static
+    expose:
+      - "8001"
+    depends_on:
+      - db
