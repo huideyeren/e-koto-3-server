@@ -6,18 +6,22 @@ volumes:
 
 services:
   h2o:
-    image: lkwg82/h2o-http2-server
+    build: ./h2o
     container_name: mysite.h2o
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./h2o.conf:/etc/h2o/h2o.conf
-      - "/etc/letsencrypt:/etc/letsencrypt"
+      - "./etc/letsencrypt:/etc/letsencrypt"
       - ./static:/static
     depends_on:
-      - web
+      - server
+    environment:
+      - EMAIL
+      - AGREEMENT=yes
+      # - VIRTUAL_HOST=$DOMAIN
+      - VIRTUAL_PORT=8000
 
   db:
     image: mariadb:10.3
@@ -31,14 +35,14 @@ services:
       - mysite.db.volume:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
 
-  web:
-    build: ./web
-    container_name: mysite.web
-    command: uwsgi --socket :8001 --module mysite.wsgi
+  server:
+    build: ./server
+    container_name: mysite.server
+    command: gunicorn e_koto_3.wsgi
     volumes:
       - ./src:/code
       - ./static:/static
     expose:
-      - "8001"
+      - "8000"
     depends_on:
       - db
