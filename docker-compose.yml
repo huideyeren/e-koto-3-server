@@ -16,7 +16,7 @@ services:
       - "./etc/letsencrypt:/etc/letsencrypt"
       - ./static:/static
     depends_on:
-      - server
+      - webapi
     environment:
       - EMAIL
       - AGREEMENT=yes
@@ -33,9 +33,9 @@ services:
       - mysite.db.volume:/var/lib/mysql
       - ./sql:/docker-entrypoint-initdb.d
 
-  server:
+  webapi:
     build: ./server
-    container_name: mysite.server
+    container_name: mysite.webapi
     command: gunicorn e_koto_3.wsgi --bind=0.0.0.0:8000
     volumes:
       - ./src:/code
