@@ -34,7 +34,7 @@ services:
       - ./sql:/docker-entrypoint-initdb.d
 
   webapi:
-    build: ./server
+    build: ./webapi
     container_name: mysite.webapi
     command: gunicorn e_koto_3.wsgi --bind=0.0.0.0:8000
     volumes:
