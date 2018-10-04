@@ -36,7 +36,7 @@ services:
   webapi:
     build: ./webapi
     container_name: mysite.webapi
-    command: gunicorn e_koto_3.wsgi --bind=0.0.0.0:8000
+    command: gunicorn e_koto_3.wsgi --bind=unix:/tmp/django.sock
     volumes:
       - ./src:/code
       - ./static:/static
