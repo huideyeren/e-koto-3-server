@@ -1,0 +1,17 @@
+[2018-10-09 15:30:37 +0000] [284] [INFO] Booting worker with pid: 284
+[2018-10-09 15:30:37 +0000] [284] [ERROR] Exception in worker process
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/arbiter.py", line 583, in spawn_worker
+    worker.init_process()
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/base.py", line 134, in init_process
+    self.run()
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/sync.py", line 124, in run
+    self.run_for_one(timeout)
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/sync.py", line 61, in run_for_one
+    self.notify()
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/base.py", line 69, in notify
+    self.tmp.notify()
+  File "/usr/local/lib/python3.6/site-packages/gunicorn/workers/workertmp.py", line 43, in notify
+    os.fchmod(self._tmp.fileno(), self.spinner)
+FileNotFoundError: [Errno 2] No such file or directory
+[2018-10-09 15:30:37 +0000] [284] [INFO] Worker exiting (pid: 284)
