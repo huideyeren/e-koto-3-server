@@ -3,6 +3,9 @@ version: '3.4'
 volumes:
   mysite.db.volume:
     name: mysite.db.volume
+  gunicorn-run:
+    name: gunicorn-run
+
 
 services:
   h2o:
@@ -16,7 +19,7 @@ services:
       - "./etc/letsencrypt:/etc/letsencrypt"
       - ./static:/static
       - ./tmp:/tmp
-      - ./tmp/django.sock:/tmp/django.sock
+      - gunicorn-run:/tmp/sock
     depends_on:
       - webapi
     environment:
@@ -38,12 +41,13 @@ services:
   webapi:
     build: ./webapi
     container_name: mysite.webapi
-    command: gunicorn e_koto_3.wsgi --bind=unix:/tmp/django.sock
+    command: gunicorn e_koto_3.wsgi:application --bind=unix:/tmp/sock/django.sock
+    # command: gunicorn e_koto_3.wsgi:application --bind=0.0.0.0:8000
     volumes:
       - ./src:/code
       - ./static:/static
       - ./tmp:/tmp
-      - ./tmp/django.sock:/tmp/django.sock
+      - gunicorn-run:/tmp/sock
     expose:
       - "8000"
     depends_on:
