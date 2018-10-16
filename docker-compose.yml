@@ -41,14 +41,15 @@ services:
   webapi:
     build: ./webapi
     container_name: mysite.webapi
-    command: gunicorn e_koto_3.wsgi:application --bind=unix:/tmp/sock/django.sock
-    # command: gunicorn e_koto_3.wsgi:application --bind=0.0.0.0:8000
+    # command: gunicorn e_koto_3.config.wsgi:application --bind=unix:/tmp/django.sock
+    command: gunicorn e_koto_3.config.wsgi:application --bind=0.0.0.0:8000
+    # command: python /code/e_koto_3/manage.py runserver 0.0.0.0:8000 
     volumes:
       - ./src:/code
       - ./static:/static
       - ./tmp:/tmp
       - gunicorn-run:/tmp/sock
-    expose:
-      - "8000"
+    ports:
+      - "8000:8000"
     depends_on:
       - db
