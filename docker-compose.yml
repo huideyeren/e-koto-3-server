@@ -18,7 +18,7 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - "./etc/letsencrypt:/etc/letsencrypt"
       - ./static:/static
-      - ./sock:/var/sock/gunicorn:ro
+      - ./sock:/var/sock/gunicorn
       - gunicorn-run:/var/sock
     depends_on:
       - webapi
