@@ -18,8 +18,8 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - "./etc/letsencrypt:/etc/letsencrypt"
       - ./static:/static
-      - ./tmp:/tmp
-      - gunicorn-run:/tmp/sock
+      - ./sock:/var/sock/gunicorn:ro
+      - gunicorn-run:/var/sock
     depends_on:
       - webapi
     environment:
@@ -41,14 +41,14 @@ services:
   webapi:
     build: ./webapi
     container_name: mysite.webapi
-    # command: gunicorn e_koto_3.config.wsgi:application --bind=unix:/tmp/django.sock
+    # command: gunicorn e_koto_3.config.wsgi:application --bind=unix:/var/sock/gunicorn/django.sock
     command: gunicorn e_koto_3.config.wsgi:application --bind=0.0.0.0:8000
     # command: python /code/e_koto_3/manage.py runserver 0.0.0.0:8000 
     volumes:
       - ./src:/code
       - ./static:/static
-      - ./tmp:/tmp
-      - gunicorn-run:/tmp/sock
+      - ./sock:/var/sock/gunicorn
+      - gunicorn-run:/var/sock/gunicorn
     ports:
       - "8000:8000"
     depends_on:
