@@ -18,7 +18,6 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
       - "./etc/letsencrypt:/etc/letsencrypt"
       - ./static:/static
-      # - ./sock:/var/sock/gunicorn
       - gunicorn-run:/var/sock/gunicorn
     depends_on:
       - webapi
@@ -42,12 +41,9 @@ services:
     build: ./webapi
     container_name: mysite.webapi
     command: gunicorn config.wsgi:application --bind=unix:/var/sock/gunicorn/django.sock
-    # command: gunicorn config.wsgi:application --bind=0.0.0.0:8000
-    # command: python /code/e_koto_3/manage.py runserver 0.0.0.0:8000 
     volumes:
       - ./src:/code
       - ./static:/static
-      # - ./sock:/var/sock/gunicorn
       - gunicorn-run:/var/sock/gunicorn
     ports:
       - "8000:8000"
