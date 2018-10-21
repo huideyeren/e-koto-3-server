@@ -1,6 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class Diary(models.Model):
+class Post(models.Model):
     first_text = models.CharField(max_length=25)
     second_text = models.CharField(max_length=25)
     third_text = models.CharField(max_length=25)
@@ -9,3 +10,4 @@ class Diary(models.Model):
     def __str__(self):
         return '\n1: ' + self.first_text + '\n2: ' + self.second_text + '\n3: ' + self.third_text + '\n'
     
+class User
