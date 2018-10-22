@@ -8,6 +8,7 @@ class Post(models.Model):
     date = models.DateField(auto_now=False, auto_now_add=True)
 
     def __str__(self):
-        return '\n1: ' + self.first_text + '\n2: ' + self.second_text + '\n3: ' + self.third_text + '\n'
-    
-class User
+        return self.date.strftime('%Y/%m/%d') + 'の投稿' \
+            + '\n1: ' + self.first_text \
+            + '\n2: ' + self.second_text \
+            + '\n3: ' + self.third_text + '\n'
