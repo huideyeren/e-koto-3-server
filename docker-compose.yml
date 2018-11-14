@@ -49,3 +49,6 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - TWITTER_API_KEY
+      - TWITTER_API_SECRET
