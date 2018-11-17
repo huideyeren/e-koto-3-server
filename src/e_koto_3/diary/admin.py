@@ -3,7 +3,10 @@ from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
 
-from .models import Post
+from diary.models import Post
 
-admin.site.register(Post)
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    """記事管理画面"""
+    pass
 

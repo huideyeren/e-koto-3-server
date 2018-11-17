@@ -41,6 +41,7 @@ services:
     build: ./webapi
     container_name: mysite.webapi
     command: gunicorn config.wsgi:application --bind=unix:/var/sock/gunicorn/django.sock
+    # command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./src:/code
       - ./static:/static

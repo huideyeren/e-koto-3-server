@@ -41,9 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'rest_framework',
     'gunicorn',
-    'diary',
-    'user'
 ]
 
 MIDDLEWARE = [
@@ -145,5 +144,18 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SOCIAL_AUTH_TWITTER_KEY = os.environ.get('TWITTER_API_KEY')
-SOCIAL_AUTH_TWITTER_SECRET =　os.environ.get('TWITTER_API_SECRET')
+SOCIAL_AUTH_TWITTER_SECRET = os.environ.get('TWITTER_API_SECRET')
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+    ],
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+}

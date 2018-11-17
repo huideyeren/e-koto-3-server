@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from rest_framework import routers
+from diary.views import PostViewSets
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r'posts', PostViewSets)
 
 urlpatterns = [
-    url(r'^$', include('diary.urls')),
+    url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
 ]

@@ -1,7 +1,10 @@
 from django.http import HttpResponse
+from rest_framework import viewsets
+from diary.models import Post
+from diary.serializers import PostSerialize
 
-def index(request):
-    return HttpResponse("Hello, world. You're at the diary index.")
+class PostViewSets(viewsets.ModelViewSet):
+    """投稿の記事"""
 
-def detail(request, diary_id):
-    return HttpResponse("%s番の日記を見ます。" % diary_id)
+    queryset = Post.objects.all()
+    serializer_class = PostSerialize
