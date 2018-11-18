@@ -23,5 +23,10 @@ router.register(r'posts', PostViewSets)
 
 urlpatterns = [
     url(r'^api/', include(router.urls)),
+    url(r'^api/login/', include('rest_social_auth.urls_jwt')),
+    url(r'^api/login/', include('rest_social_auth.urls_token')),
+    url(r'^api/login/', include('rest_social_auth.urls_session')),
+    url(r'^auth/', include('rest_framework_social_oauth2.urls')),
+    url(r'api/check/', check_token),
     url(r'^admin/', admin.site.urls),
 ]

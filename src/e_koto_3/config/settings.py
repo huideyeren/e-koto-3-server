@@ -40,9 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'social_django',
+    'rest_social_auth',
     'rest_framework',
+    'rest_framework.authtoken',
     'gunicorn',
+    'oauth2_provider', 
+    'rest_framework_social_oauth2', 
 ]
 
 MIDDLEWARE = [
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -146,6 +152,8 @@ AUTHENTICATION_BACKENDS = [
 SOCIAL_AUTH_TWITTER_KEY = os.environ.get('TWITTER_API_KEY')
 SOCIAL_AUTH_TWITTER_SECRET = os.environ.get('TWITTER_API_SECRET')
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = True
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -159,3 +167,7 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
+
+CSRF_COOKIE_SECURE = True
+CORS_ORIGIN_ALLOW_ALL = True
+ROOT_URLCONF = 'config.urls'
