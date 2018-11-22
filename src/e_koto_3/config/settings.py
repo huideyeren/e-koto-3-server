@@ -47,7 +47,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'gunicorn',
     'oauth2_provider', 
-    'rest_framework_social_oauth2', 
+    'rest_framework_social_oauth2',
+    'docs',
 ]
 
 MIDDLEWARE = [

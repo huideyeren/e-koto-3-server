@@ -5,6 +5,5 @@ from diary.serializers import PostSerialize
 
 class PostViewSets(viewsets.ModelViewSet):
     """投稿の記事"""
-
     queryset = Post.objects.all()
     serializer_class = PostSerialize
