@@ -37,4 +37,4 @@ social-auth-core==1.7.0
 Sphinx==1.8.2
 sphinx-rtd-theme==0.4.2
 sphinxcontrib-websupport==1.1.0
-urllib3==1.24.1
+urllib3==1.26.5
